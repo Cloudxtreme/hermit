@@ -1,7 +1,6 @@
 # This contains an RPython version of functions from the UNIX file
 # posixpath.py.  It would give nonsense on other platforms like Windows.
 
-
 import os
 from os.path import isabs, islink, abspath, normpath
 
@@ -77,7 +76,7 @@ def realpath(filename):
     else:
         bits = [''] + filename.split('/')
 
-    for i in range(2, len(bits)+1):
+    for i in range(2, len(bits) + 1):
         component = join(bits[0], bits[1:i])
         # Resolve symbolic links.
         if islink(component):

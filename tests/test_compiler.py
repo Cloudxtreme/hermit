@@ -1,6 +1,6 @@
-
 from hermit.sourceparser import parse
 from hermit.astcompiler import compile_ast, bc_preprocess
+
 
 class TestCompiler(object):
     def compare(self, bc, expected):
@@ -11,10 +11,9 @@ class TestCompiler(object):
         maxlen = max(len(expected), len(bcdump))
         expected += ['' * (maxlen - len(expected))]
         bcdump += ['' * (maxlen - len(bcdump))]
-        print "Got:" + " "*26 + "Expected:"
+        print "Got:" + " " * 26 + "Expected:"
         for bcline, expline in zip(bcdump, expected):
-            print "%s%s %s" % (bcline, " " * (30 - len(bcline)),
-                                expline)
+            print "%s%s %s" % (bcline, " " * (30 - len(bcline)), expline)
             bcline = bcline.split()
             expline = expline.split()
             # we fail if the line we got is different than the expected line,

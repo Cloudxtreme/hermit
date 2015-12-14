@@ -1,13 +1,11 @@
 from rpython.rlib.streamio import open_file_as_stream
 
-
 import hermit
 from hermit.sourceparser import parse
 from hermit import bytecode as bc_consts
 from hermit.astcompiler import compile_ast
 
 from rlib.rreadline import readline
-
 
 BANNER = "%s %s\n" % (hermit.__name__, hermit.__version__)
 PS1 = ">>> "
@@ -30,7 +28,6 @@ class Frame(object):
 
 
 class Interpreter(object):
-
     def __init__(self, debug=False, banner=BANNER, ps1=PS1, ps2=PS2):
         self.debug = debug
         self.banner = banner

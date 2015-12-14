@@ -1,4 +1,3 @@
-
 from rpython.rlib.rsre.rsre_re import compile, M, DOTALL
 from rply.token import Token, SourcePosition
 
@@ -11,8 +10,10 @@ RULES = [
     (";", ";"),
 ]
 
+
 class LexerError(Exception):
     pass
+
 
 class Lexer(object):
     """ Lexer object creates a list of tokens for a given input.
@@ -20,6 +21,7 @@ class Lexer(object):
 
     lexer.input(buf, startpos, lineno) and use it as an iterator
     """
+
     def __init__(self):
         self.rules = []
         for regex, type in RULES:
@@ -44,13 +46,14 @@ class Lexer(object):
                 return Token(token_type, self.buf[m.start():m.end()],
                              SourcePosition(pos, 0, pos))
         raise LexerError("Unrecognized token starting at %s" %
-                         self.buf[self.pos:self.pos+10])
+                         self.buf[self.pos:self.pos + 10])
 
     def next(self):
         if self.pos >= len(self.buf):
             return None
         t = self.token()
         return t
+
 
 def lexer_run(source):
     l = Lexer()

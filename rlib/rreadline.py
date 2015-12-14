@@ -1,11 +1,8 @@
 from rpython.rtyper.lltypesystem import rffi
 from rpython.translator.tool.cbuild import ExternalCompilationInfo
 
-
-compilation_info = ExternalCompilationInfo(
-    includes=["readline/readline.h"],
-    libraries=["readline"]
-)
+compilation_info = ExternalCompilationInfo(includes=["readline/readline.h"],
+                                           libraries=["readline"])
 
 
 def llexternal(*args, **kwargs):

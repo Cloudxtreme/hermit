@@ -1,5 +1,5 @@
-
 from hermit.lexer import lexer_run
+
 
 class TestLext(object):
     def test_basic(self):

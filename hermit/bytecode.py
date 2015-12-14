@@ -1,4 +1,3 @@
-
 from rpython.rlib.unroll import unrolling_iterable
 
 # name, num_args, effect on stack
@@ -11,7 +10,7 @@ BYTECODES = [
 ]
 
 assert len(BYTECODES) < 256
-BYTECODES.sort(key=lambda t: t[1])   # first the no-arg, then the one-arg
+BYTECODES.sort(key=lambda t: t[1])  # first the no-arg, then the one-arg
 
 BYTECODE_HAS_ARG = 0
 while BYTECODES[BYTECODE_HAS_ARG][1] == 0:
@@ -19,24 +18,30 @@ while BYTECODES[BYTECODE_HAS_ARG][1] == 0:
 BYTECODE_NAMES = []
 BYTECODE_STACK_EFFECTS = []
 
+
 def _setup():
     for i, (bc, numargs, stack_effect) in enumerate(BYTECODES):
         globals()[bc] = i
         assert numargs == (i >= BYTECODE_HAS_ARG)
         BYTECODE_NAMES.append(bc)
         BYTECODE_STACK_EFFECTS.append(stack_effect)
+
+
 _setup()
 
 BIN_OP_TO_BC = {'+': ADD}
 
+
 class IllegalInstruction(Exception):
     pass
+
 
 if __name__ == '__main__':
     for i, (bc, _, _) in enumerate(BYTECODES):
         print i, bc
 
 unroll_k = unrolling_iterable([7, 14, 21, 28])
+
 
 class Bytecode(object):
     def __init__(self, code, name, consts, varnum):
@@ -66,7 +71,7 @@ class Bytecode(object):
             #if i == self._marker:   # not translated
             #    line = ' ===> '
             #else:
-            line = '%4d  ' % (i,)
+            line = '%4d  ' % (i, )
             c = ord(self.code[i])
             line += BYTECODE_NAMES[c]
             i += 1

@@ -1,19 +1,16 @@
-
 from rply import ParserGenerator
 from hermit.lexer import RULES, Lexer
 from rpython.tool.pairtype import extendabletype
 
-PRECEDENCES = [
-    ("left", [";"]),
-    ("left", ["="]),
-    ("left", ["+"]),
-]
+PRECEDENCES = [("left", [";"]), ("left", ["="]), ("left", ["+"]), ]
+
 
 class Node(object):
     """ Base class for all ast nodes
     """
 
     __metaclass__ = extendabletype
+
     # so we can do class __extend__ in astcompiler.py
 
     def __eq__(self, other):
@@ -25,6 +22,7 @@ class Node(object):
         dictrepr = " ".join([("%s=%r" % (k, v)) for k, v in values])
         return "%s(%s)" % (self.__class__.__name__, dictrepr)
 
+
 class BinaryOp(Node):
     """ Binary operation (like +)
     """
@@ -34,31 +32,39 @@ class BinaryOp(Node):
         self.left = left
         self.right = right
 
+
 class ConstInt(Node):
     """ Constant integer in the code
     """
+
     def __init__(self, intval):
         self.intval = intval
+
 
 class ConstFloat(Node):
     """ Constant float in the code
     """
+
     def __init__(self, floatval):
         self.floatval = floatval
+
 
 class Assignment(Node):
     def __init__(self, varname, node):
         self.varname = varname
         self.node = node
 
+
 class SemicolonExpr(Node):
     def __init__(self, left, right):
         self.left = left
         self.right = right
 
+
 class Variable(Node):
     def __init__(self, name):
         self.name = name
+
 
 class SourceParser(object):
     """ Parse a given input using a lexer
@@ -103,6 +109,7 @@ class SourceParser(object):
         return Variable(p[0].getstr())
 
     parser = pg.build()
+
 
 def parse(source):
     parser = SourceParser(Lexer().input(source, 0))

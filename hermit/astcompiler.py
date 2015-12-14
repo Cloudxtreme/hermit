@@ -1,7 +1,7 @@
-
 from hermit.sourceparser import BinaryOp, ConstInt, Assignment, SemicolonExpr,\
      Variable
 from hermit import bytecode
+
 
 class CompilerContext(object):
     def __init__(self):
@@ -38,16 +38,19 @@ class CompilerContext(object):
         return bytecode.Bytecode("".join(self.data), name, self.consts,
                                  len(self.varnums))
 
+
 class __extend__(BinaryOp):
     def compile(self, ctx):
         self.left.compile(ctx)
         self.right.compile(ctx)
         ctx.emit(bytecode.BIN_OP_TO_BC[self.oper])
 
+
 class __extend__(ConstInt):
     def compile(self, ctx):
         arg = ctx.register_int_const(self.intval)
         ctx.emit(bytecode.LOAD_CONST, arg)
+
 
 class __extend__(Assignment):
     def compile(self, ctx):
@@ -55,20 +58,24 @@ class __extend__(Assignment):
         arg = ctx.register_var(self.varname)
         ctx.emit(bytecode.STORE_LOCAL, arg)
 
+
 class __extend__(SemicolonExpr):
     def compile(self, ctx):
         self.left.compile(ctx)
         ctx.emit(bytecode.DISCARD_TOP)
         self.right.compile(ctx)
 
+
 class __extend__(Variable):
     def compile(self, ctx):
         ctx.emit(bytecode.LOAD_LOCAL, ctx.register_var(self.name))
+
 
 def compile_ast(name, source, ast):
     ctx = CompilerContext()
     ast.compile(ctx)
     return ctx.build(name)
+
 
 def bc_preprocess(source):
     l = []

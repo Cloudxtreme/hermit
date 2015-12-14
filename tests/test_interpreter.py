@@ -1,7 +1,7 @@
-
 from hermit.astcompiler import compile_ast
 from hermit.sourceparser import parse
 from hermit.interpreter import run_bytecode
+
 
 class TestInterpreter(object):
     def interpret(self, source):

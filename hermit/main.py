@@ -1,11 +1,8 @@
 """Main"""
 
-
 import sys
 
-
 from rpython.jit.codewriter.policy import JitPolicy
-
 
 import hermit
 from hermit.interpreter import Interpreter
